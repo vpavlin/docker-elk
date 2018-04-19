@@ -1,0 +1,54 @@
+{
+  "actions": {
+    "New console action rdp5rb2rd6p": {
+      "throttle_period": "0h0m1s",
+      "console": {
+        "message": "Number of failures yesterday: {{payload.hits.total}}!\n\n{{#payload.hits.hits}} \n        Name: {{job_name}} <br>\n{{/payload.hits.hits}}",
+        "save_payload": true
+      }
+    },
+    "Test": {
+      "throttle_period": "0h0m1s",
+      "email": {
+        "to": "your@email.com",
+        "from": "whatever@email.com",
+        "subject": "Report!",
+        "body": "Total failures: {{payload.hits.total}}"
+      }
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "index": [
+          "logstash-2018.04.18"
+        ],
+        "body": {
+          "query": {
+            "match": {
+              "ci_job.result": "FAILURE"
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "script": {
+      "script": "payload.hits.total >= 0"
+    }
+  },
+  "transform": {
+    "script": {
+      "script": "for (var i = 0; i<payload.hits.hits.length; i++) {payload.hits.hits[i].job_name = payload.hits.hits[i]._source['ci_job.name']}"
+    }
+  },
+  "trigger": {
+    "schedule": {
+      "later": "every 30 seconds"
+    }
+  },
+  "disable": false,
+  "report": false,
+  "title": "reporter_title"
+}

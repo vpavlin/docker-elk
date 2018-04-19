@@ -5,3 +5,16 @@
 server.name: kibana
 server.host: "0"
 elasticsearch.url: http://elasticsearch:9200
+
+sentinl:
+  settings:
+    email:
+      active: true
+      user: you@gmail.com
+      password: your_secret_pass
+      host: smtp.gmail.com
+      tls: true
+      port: 587
+#    report:
+#      active: true
+#      executable_path: '/usr/bin/chromium' # path to Chrome v59+ or Chromium v59+ smtp.gmail.com
