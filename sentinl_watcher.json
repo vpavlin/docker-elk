@@ -3,17 +3,17 @@
     "New console action rdp5rb2rd6p": {
       "throttle_period": "0h0m1s",
       "console": {
-        "message": "Number of failures yesterday: {{payload.hits.total}}!\n\n{{#payload.hits.hits}} \n        Name: {{job_name}} <br>\n{{/payload.hits.hits}}",
+        "message": "Number of failures yesterday: {{payload.hits.total}}!\n",
         "save_payload": true
       }
     },
-    "Test": {
+    "Email Action": {
       "throttle_period": "0h0m1s",
       "email": {
         "to": "your@email.com",
-        "from": "whatever@email.com",
+        "from": "some@email.com",
         "subject": "Report!",
-        "body": "Total failures: {{payload.hits.total}}"
+        "body": "Total failures: {{payload.hits.total}}\n\n\n{{#payload.hits.hits}} \n        Name: {{job_name}} <br>\n{{/payload.hits.hits}}"
       }
     }
   },
@@ -50,5 +50,5 @@
   },
   "disable": false,
   "report": false,
-  "title": "reporter_title"
+  "title": "Test watcher"
 }
